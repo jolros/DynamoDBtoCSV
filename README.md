@@ -26,6 +26,8 @@ Use *-d* to describe the table prior so you can have an idea of the number of ro
 
 to get some information about the table.
 
+If you know or suspect the rows have differing attributes, running with *-u* will give you the union of all the attributes. The downside to this as the entire table will exist in memory during the operation. However, if a table's attributes differ from row to row, without this parameter the resulting CSV will have inconsistent columns and will be incorrect.
+
 Full syntax is:
 
 	node dynamoDBtoCSV.js --help
@@ -36,6 +38,7 @@ Full syntax is:
     	-h, --help               output usage information
     	-V, --version            output the version number
     	-t, --table [tablename]  Add the table you want to output to csv
+    	-u, --union              Print every column seen in the table (consumes more memory)
     	-d, --describe           
 
 
