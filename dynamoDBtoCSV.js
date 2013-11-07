@@ -5,7 +5,7 @@ var dynamoDB = new AWS.DynamoDB.Client();
 
 var iKnowTheHeaders = false;
 
-program.version('0.0.1').option('-t, --table [tablename]', 'Add the table you want to output to csv').option("-d, --describe").parse(process.argv);
+program.version('0.0.2').option('-t, --table [tablename]', 'Add the table you want to output to csv').option("-d, --describe").parse(process.argv);
 
 if(!program.table) {
 	console.log("You must specify a table");
