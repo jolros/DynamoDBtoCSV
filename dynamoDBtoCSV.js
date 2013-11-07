@@ -96,8 +96,10 @@ var scanDynamoDB = function(query) {
 function arrayToCSV(array_input) {
 	var string_output = "";
 	for(var i = 0; i < array_input.length; i++) {
-        var value = (typeof array_input[i] == 'undefined') ? '' : array_input[i];
-		string_output += ('"' + value.replace('"', '\"') + '"');
+        if(typeof array_input[i] != 'undefined' && array_input[i].length > 0) {
+    		string_output += ('"' + array_input[i].replace(/"/g, '""') + '"');
+        } // Empty string with no quotes for blank
+
 		if(i != array_input.length - 1) string_output += ","
 	};
 	return string_output;
