@@ -21,6 +21,7 @@ if(program.describe && program.union) {
 
 var query = {
 	"TableName": program.table,
+	
 };
 
 
@@ -50,6 +51,7 @@ var scanDynamoDBWithUnion = function(query) {
                 var value = {};
                 for(var propertyName in item) {
                     headers[propertyName] = 1;
+                    
 			        var attribute = item[propertyName];
 
                     // S — (String) Represents a String data type
@@ -65,13 +67,16 @@ var scanDynamoDBWithUnion = function(query) {
                     else { console.dir('Set datatypes are not supported') }
                 }
                 values.push(value);
-            }
+           }
 
             if(data.LastEvaluatedKey) { // Result is incomplete; there is more to come.
                 query.ExclusiveStartKey = data.LastEvaluatedKey;
-                scanDynamoDB(query);
+                
+                scanDynamoDBWithUnion(query);
             };
         } else console.dir(err);
+
+        
 
         printoutAll( Object.keys(headers), values ); // Print out the subset of results.
     });
@@ -126,8 +131,11 @@ function printout(items) {
 }
 
 function printoutAll(headers, items) {
-    // Log the known headers
-    console.log(arrayToCSV(headers))
+	if (!iKnowTheHeaders){
+	    // Log the known headers
+	    console.log(arrayToCSV(headers));
+	    iKnowTheHeaders = true;
+	}
 
 	for(index in items) {
 		var values = []
